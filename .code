@@ -1,0 +1,54 @@
+int receiverpin = 11;
+#include <Servo.h>
+#include <IRremote.h>         	
+IRrecv irrecv(receiverpin); 	
+decode_results results; 
+
+
+int led1=8;
+int led2=7;
+float RIGHT;
+float LEFT;	
+Servo motor1;
+Servo motor2;
+
+void setup(){
+  Serial.begin(9600);
+  irrecv.enableIRIn();
+  int ir = 11;
+pinMode(6,OUTPUT);
+pinMode(9,OUTPUT);
+  pinMode(led1,OUTPUT);
+  pinMode(led2,OUTPUT);
+  motor1.attach(9);
+  motor1.attach(10);
+}
+
+void MotorOn () {
+  RIGHT=255;
+ LEFT= 255;
+ Serial.print("Motor is on");
+ analogWrite(9, 255);
+  analogWrite(10, 255);
+}
+
+void loop(){
+      digitalWrite(led1,HIGH);
+    digitalWrite(led2,HIGH);
+  
+  if(irrecv.decode(&results)){
+     	Serial.print(results.value,HEX);
+     	Serial.print(" ");
+	switch(results.value){
+  
+   	case 0x490:
+   analogWrite(9, 255);
+   analogWrite(10, 255);
+
+
+   for (int z = 0; z < 2; z++) {
+     irrecv.resume();
+ 	}
+  }
+  }
+}
