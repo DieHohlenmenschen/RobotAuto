@@ -7,8 +7,6 @@ decode_results results;
 
 int led1=8;
 int led2=7;
-float RIGHT;
-float LEFT;	
 Servo motor1;
 Servo motor2;
 
@@ -25,16 +23,24 @@ pinMode(9,OUTPUT);
 }
 
 void MotorOn () {
-  RIGHT=255;
- LEFT= 255;
  Serial.print("Motor is on");
- analogWrite(9, 255);
-  analogWrite(10, 255);
+ 
+    for(int i=110; i<181; i++){
+     digitalWrite.motor1;
+     digitalWrite.motor2; 
+    }
+    
+        for(int j=180; j>109; j--){
+     digitalWrite.motor1;
+     digitalWrite.motor2; 
+    }
 }
 
 void loop(){
       digitalWrite(led1,HIGH);
     digitalWrite(led2,HIGH);
+    
+   
   
   if(irrecv.decode(&results)){
      	Serial.print(results.value,HEX);
@@ -42,8 +48,8 @@ void loop(){
 	switch(results.value){
   
    	case 0x490:
-   analogWrite(9, 255);
-   analogWrite(10, 255);
+MotorOn();
+break;
 
 
    for (int z = 0; z < 2; z++) {
