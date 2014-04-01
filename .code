@@ -5,8 +5,6 @@ IRrecv irrecv(receiverpin);
 decode_results results; 
 
 
-int led1=8;
-int led2=7;
 Servo motor1;
 Servo motor2;
 
@@ -16,40 +14,69 @@ void setup(){
   int ir = 11;
 pinMode(6,OUTPUT);
 pinMode(9,OUTPUT);
-  pinMode(led1,OUTPUT);
-  pinMode(led2,OUTPUT);
-  motor1.attach(9);
   motor1.attach(10);
 }
 
-void MotorOn () {
+void MotorFoward () {
  Serial.print("Motor is on");
  
     for(int i=110; i<181; i++){
-     digitalWrite.motor1;
-     digitalWrite.motor2; 
+      motor1.write(i);
+      motor2.write(i); 
     }
     
         for(int j=180; j>109; j--){
-     digitalWrite.motor1;
-     digitalWrite.motor2; 
+      motor1.write(j);
+      motor2.write(j); 
     }
 }
 
-void loop(){
-      digitalWrite(led1,HIGH);
-    digitalWrite(led2,HIGH);
+void MotorBack () {
+ Serial.print("Motor is on");
+ 
+    for(int i=10; i<110; i++){
+      motor1.write(i);
+      motor2.write(i); 
+    }
     
-   
-  
+        for(int j=109; j>10; j--){
+      motor1.write(j);
+      motor2.write(j); 
+    }
+}
+
+
+
+void MotorStop () {
+ Serial.print("Motor is on");
+ 
+    for(int i=0; i>1; i++){
+    }
+    
+        for(int j=109; j>39; j--){
+    }
+}
+
+
+
+void loop(){
+    
   if(irrecv.decode(&results)){
      	Serial.print(results.value,HEX);
      	Serial.print(" ");
 	switch(results.value){
-  
-   	case 0x490:
-MotorOn();
-break;
+
+     case 0x490:
+    MotorFoward();
+    break;
+
+
+     case 0xC90:
+    MotorBack();
+    break;
+    
+   default:
+    break;
 
 
    for (int z = 0; z < 2; z++) {
