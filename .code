@@ -85,3 +85,18 @@ void loop(){
   }
   }
 }
+
+
+
+
+
+
+
+
+
+  if(irrecv.decode(&results)){
+     case 0x290:
+    break;
+  }
+    
+    
