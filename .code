@@ -7,6 +7,8 @@ decode_results results;
 
 Servo motor1;
 Servo motor2;
+int sensor1 = 3;
+int sensor2 = 4;
 
 void setup(){
   Serial.begin(9600);
@@ -15,6 +17,8 @@ void setup(){
 pinMode(6,OUTPUT);
 pinMode(9,OUTPUT);
   motor1.attach(10);
+  pinMode(sensor1,INPUT);
+  pinMode(sensor2,INPUT);
 }
 
 void MotorFoward () {
@@ -34,32 +38,40 @@ void MotorFoward () {
 void MotorBack () {
  Serial.print("Motor is on");
  
-    for(int i=10; i<110; i++){
+    for(int i=25; i<110; i++){
       motor1.write(i);
       motor2.write(i); 
     }
     
-        for(int j=109; j>10; j--){
+        for(int j=109; j>25; j--){
       motor1.write(j);
       motor2.write(j); 
     }
 }
 
+void Sensor () {
 
-
-void MotorStop () {
- Serial.print("Motor is on");
- 
-    for(int i=0; i>1; i++){
+          for(int i=0; i<110; i--){
+      motor1.write(i);
+      motor2.write(i); 
     }
     
-        for(int j=109; j>39; j--){
+           for(int j=0; j<110; j--){
+      motor1.write(j);
+      motor2.write(j); 
     }
-}
+    }
+
+
+
+
 
 
 
 void loop(){
+  
+    sensor1 = digitalRead(3);
+   sensor2 = digitalRead(4);
     
   if(irrecv.decode(&results)){
      	Serial.print(results.value,HEX);
@@ -77,6 +89,19 @@ void loop(){
     
    default:
     break;
+    
+    if(sensor1==HIGH){
+      Sensor();
+    }
+    
+    if(sensor2==HIGH){
+       Sensor();
+    }
+    
+    
+    
+    
+    
 
 
    for (int z = 0; z < 2; z++) {
@@ -85,18 +110,3 @@ void loop(){
   }
   }
 }
-
-
-
-
-
-
-
-
-
-  if(irrecv.decode(&results)){
-     case 0x290:
-    break;
-  }
-    
-    
