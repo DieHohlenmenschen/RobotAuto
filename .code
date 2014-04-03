@@ -5,21 +5,26 @@ IRrecv irrecv(receiverpin);
 decode_results results; 
 
 
+
 Servo motor1;
 Servo motor2;
 int sensor1 = 3;
-int sensor2 = 4;
+int sensor2 = 2;
+
+
 
 void setup(){
   Serial.begin(9600);
   irrecv.enableIRIn();
   int ir = 11;
-pinMode(6,OUTPUT);
-pinMode(9,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(9,OUTPUT);
   motor1.attach(10);
-  pinMode(sensor1,INPUT);
-  pinMode(sensor2,INPUT);
+ // attachInterrupt(0,Sensor,FALLING);
+ // attachInterrupt(1,Sensor,FALLING);
 }
+
+
 
 void MotorFoward () {
  Serial.print("Motor is on");
@@ -35,6 +40,7 @@ void MotorFoward () {
     }
 }
 
+
 void MotorBack () {
  Serial.print("Motor is on");
  
@@ -47,10 +53,12 @@ void MotorBack () {
       motor1.write(j);
       motor2.write(j); 
     }
+    
+   
 }
 
 void Sensor () {
-
+/*
           for(int i=0; i<110; i--){
       motor1.write(i);
       motor2.write(i); 
@@ -60,12 +68,13 @@ void Sensor () {
       motor1.write(j);
       motor2.write(j); 
     }
-    }
-
-
-
-
-
+ */
+  motor1.write(90);
+  motor2.write(90);
+  delay(7000);
+  
+}
+    
 
 
 void loop(){
@@ -90,16 +99,6 @@ void loop(){
    default:
     break;
     
-    if(sensor1==HIGH){
-      Sensor();
-    }
-    
-    if(sensor2==HIGH){
-       Sensor();
-    }
-    
-    
-    
     
     
 
@@ -109,4 +108,8 @@ void loop(){
  	}
   }
   }
+   if(analogRead(0)< 100 || analogRead(1) < 100)
+    {
+      Sensor();
+    }
 }
