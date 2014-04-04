@@ -20,13 +20,13 @@ void setup(){
   pinMode(6,OUTPUT);
   pinMode(9,OUTPUT);
   motor1.attach(10);
- // attachInterrupt(0,Sensor,FALLING);
- // attachInterrupt(1,Sensor,FALLING);
+ attachInterrupt(0,Sensor,FALLING);
+ attachInterrupt(1,Sensor,FALLING);
 }
 
 
 
-void MotorFoward () {
+void MotorForward () {
  Serial.print("Motor is on");
  
     for(int i=110; i<181; i++){
@@ -58,20 +58,10 @@ void MotorBack () {
 }
 
 void Sensor () {
-/*
-          for(int i=0; i<110; i--){
-      motor1.write(i);
-      motor2.write(i); 
-    }
-    
-           for(int j=0; j<110; j--){
-      motor1.write(j);
-      motor2.write(j); 
-    }
- */
+
   motor1.write(90);
   motor2.write(90);
-  delay(7000);
+  delay(5000);
   
 }
     
@@ -88,7 +78,7 @@ void loop(){
 	switch(results.value){
 
      case 0x490:
-    MotorFoward();
+    MotorForward();
     break;
 
 
